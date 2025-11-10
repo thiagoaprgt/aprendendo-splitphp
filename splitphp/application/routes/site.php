@@ -12,8 +12,28 @@ class Site extends WebService
 
     $this->homePage();
 
-    $this->teste();
     
+
+    if(!empty($this->hostAllowList())) {
+
+      $this->teste();
+     
+    }
+
+   
+    
+  }
+
+  private function hostAllowList() {
+
+    $host = [getallheaders()["Host"]];;
+
+    $hostsAllowedList = [
+      "localhost:8000",
+      "localhost:5173",
+    ];
+
+    return array_intersect($hostsAllowedList, $host);
   }
 
   private function homePage() {
@@ -39,6 +59,7 @@ class Site extends WebService
       // $message = $this->getService('example')->testando();
 
       $db = $this->getDao('people')->find();
+
           
 
       return $this->response
