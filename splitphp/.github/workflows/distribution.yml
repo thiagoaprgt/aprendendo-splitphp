@@ -1,0 +1,69 @@
+name: Build Combined Distribution
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write   # allow the action to upload release assets
+
+    steps:
+      # 1) Checkout this repo (starter) at the released tag
+      - name: Checkout starter
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          path: starter
+
+      # 2) Fetch latest release tag from splitphp/core
+      - name: Get latest core release
+        id: core
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+            const { data } = await github.rest.repos.getLatestRelease({
+              owner: 'splitphp',
+              repo:  'core'
+            });
+            return data.tag_name;
+
+      # 3) Checkout splitphp/core at that tag into ./core
+      - name: Checkout core
+        uses: actions/checkout@v3
+        with:
+          repository: splitphp/core
+          token:      ${{ secrets.GITHUB_TOKEN }}
+          ref:        ${{ steps.core.outputs.result }}
+          path:       core
+
+      # 4) Assemble dist/ folder
+      - name: Assemble distribution folder
+        run: |
+          mkdir -p dist/core
+          # empacota starter, respeitando export-ignore
+          git -C starter archive HEAD --format=tar | tar -x -C dist/
+          # empacota core, respeitando export-ignore
+          git -C core archive HEAD --format=tar | tar -x -C dist/core/
+
+      # 5) Zip it up
+      - name: Zip distribution
+        run: |
+          cd dist
+          zip -r "../splitphp-distribution-${{ github.event.release.tag_name }}.zip" ./*
+          cp ../splitphp-distribution-${{ github.event.release.tag_name }}.zip ../splitphp-distribution-latest.zip
+
+      # 6) Upload the ZIP back to the Release
+      - name: Upload ZIP to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            splitphp-distribution-${{ github.event.release.tag_name }}.zip
+            splitphp-distribution-latest.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
