@@ -1,6 +1,6 @@
 <script setup>
 
-  const listPeopleFormButton = document.querySelectorAll('.listPeopleFormButton')[0];  
+  const FilterPeopleFormButton = document.querySelectorAll('.listPeopleFormButton')[0];  
 
   async function submitListPeopleForm() {
 
@@ -20,6 +20,21 @@
     });
 
   } 
+
+
+  async function listAllPeople() {
+
+    let endpoint = "http://127.0.0.1:8000/site/listAllPeople";
+
+    let list = await fetch(endpoint, {
+
+      method: "GET"
+
+    });
+
+    console.log(list);
+
+  }
   
 
 </script>
@@ -29,7 +44,7 @@
 
   <div class="form_listPeople">
 
-    <div>Cadastre-se</div>
+    <div>Filtrar lista de pessoas:</div>
 
     <div>Nome Completo</div>
     <input name="name" type="text">
@@ -49,6 +64,20 @@
     <div class="form_button">
       <button class="listPeopleFormButton" @click="submitListPeopleForm">Cadastrar</button>
     </div>
+
+    <div class="form_button">
+      <button class="listPeopleFormButton" @click="listAllPeople">Listar todas pessoas</button>
+    </div>
+
+  </div>
+
+  <div class="listPeople">
+
+    <ul>
+      <li>
+
+      </li>
+    </ul>
 
   </div>
 

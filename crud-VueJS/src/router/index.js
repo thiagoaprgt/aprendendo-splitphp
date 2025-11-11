@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 
 import Testando from './../components/Testando.vue';
 import RegisterPerson from './../components/crud/RegisterPerson.vue';
-import FilterPeople from './../components/crud/FilterPeople.vue';
+import ListPeople from './../components/crud/ListPeople.vue';
 import EditPerson from './../components/crud/EditPerson.vue';
 
 const routes = [

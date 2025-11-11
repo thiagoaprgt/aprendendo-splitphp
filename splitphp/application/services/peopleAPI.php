@@ -57,6 +57,16 @@ class PeopleAPI extends Service
 
   }
 
+  public function listAllPeople() {
+
+    $result = $this->getDao(self::$tablename)
+        ->find("SELECT * FROM " . self::$tablename)
+    ;
+
+    return $result;
+
+  }
+
   protected static function listPeople(array $conditions) {
 
   }

@@ -18,6 +18,7 @@ class Site extends WebService
 
       $this->teste();
       $this->registerNewPerson();
+      $this->listAllPeople();
      
     }
 
@@ -82,9 +83,7 @@ class Site extends WebService
         'cellphone' => $params['cellphone'],
         'cpf' => $params['cpf'],
         'address' => $params['address']
-      ];
-
-      
+      ];      
 
       $result = $this->getService('peopleAPI')->insertNewPerson($data);
 
@@ -95,6 +94,22 @@ class Site extends WebService
 
 
     });
+  }
+
+
+  private function listAllPeople() {
+
+    $this->addEndpoint('GET', '/listAllPeople', function ($params){
+
+      $result = $this->getService('peopleAPI')->listAllPeople();
+
+
+      return $this->response
+        ->withStatus(200)
+        ->withData($result);
+
+    });
+
   }
 
 
