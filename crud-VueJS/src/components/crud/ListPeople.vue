@@ -81,13 +81,16 @@
       address.innerText = listPeople[index].address;
       
 
-      let edit = document.createElement("td");      
+      let edit = document.createElement("a");
+      let clickAttributeEdit = document.createAttribute('onclick');
+      clickAttributeEdit.value = "editPerson(this)";
+      edit.setAttributeNode(clickAttributeEdit);    
       edit.innerHTML = "&#128221";
 
       let remove = document.createElement("td");
-      let clickAttribute = document.createAttribute('onclick');
-      clickAttribute.value = "deletePerson(this)";
-      remove.setAttributeNode(clickAttribute);
+      let clickAttributeRemove = document.createAttribute('onclick');
+      clickAttributeRemove.value = "deletePerson(this)";
+      remove.setAttributeNode(clickAttributeRemove);
       remove.innerHTML = "❌";
 
       let personIdAttribute = document.createAttribute('person_id');
@@ -114,16 +117,16 @@
   }
 
   
-  async function deletePerson(element) {
+  async function editPerson(element) {
 
     let form = new FormData();
     form.append("id", element.getAttribute('person_id'))
 
-    let endpoint = "http://127.0.0.1:8000/site/deletePerson";
+    let endpoint = "http://127.0.0.1:8000/site/updatePerson";
 
     let list = await fetch(endpoint, {
 
-      method: "DELETE",
+      method: "POST",
       body: form,
 
     });
@@ -162,9 +165,11 @@
 
       }
 
-      async function EditPerson(element) {
+      async function editPerson(element) {
 
-        console.log(element.getAttribute('person_id'));
+        window.location.href= 'http://localhost:5173/editPerson'
+
+        console.log(element);
 
       }
 

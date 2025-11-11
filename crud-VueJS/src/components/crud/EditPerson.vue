@@ -21,6 +21,9 @@ defineProps({
     <div>Email:</div>
     <input type="email" name="email_registerPerson">
 
+    <div>CPF</div>
+    <input type="number" name="cpf">
+
     <div>Endereço</div>
     <input type="text" name="address_registerPerson">
 
