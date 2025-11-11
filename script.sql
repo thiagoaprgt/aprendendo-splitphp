@@ -19,7 +19,7 @@ create table people (
     name text(30) not null,
     email varchar(30) not null,    
     cellphone int(9) not null,
-    cpf bigint(11) not null unique,
+    cpf bigint(11) not null,
     address varchar(40)  
     
 );

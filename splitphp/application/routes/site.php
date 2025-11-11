@@ -137,6 +137,7 @@ class Site extends WebService
     $this->addEndpoint('POST', '/updatePerson', function ($params) {
        
       $data = [
+        'id' => $params['id'],
         'name' => $params['name'],
         'email' => $params['email'],
         'cellphone' => $params['cellphone'],
@@ -146,6 +147,7 @@ class Site extends WebService
 
       $result = $this->getService('peopleAPI')->updatePerson($data);
 
+      
 
       return $this->response
         ->withStatus(200)

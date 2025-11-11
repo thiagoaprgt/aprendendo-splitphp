@@ -53,7 +53,15 @@ class PeopleAPI extends Service
   }
 
 
-  public function updatePerson(int $id) {
+  public function updatePerson(array $data) {   
+    
+
+    $result = $this->getDao(self::$tablename)
+        ->filter('id')->equalsTo($data['id'])
+        ->update($data);
+    ;
+
+    return $result;        
 
   }
         

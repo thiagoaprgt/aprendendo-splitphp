@@ -42,6 +42,7 @@
 
     let form = new FormData();
 
+    form.append("id", getIdonUrl());
     form.append("name", document.querySelectorAll('[name="name_updatePerson"]')[0].value);
     form.append("email", document.querySelectorAll('[name="email_updatePerson"]')[0].value);
     form.append("cellphone", document.querySelectorAll('[name="cellphone_updatePerson"]')[0].value );
@@ -80,7 +81,7 @@
     <input type="text" name="address_updatePerson">
 
     <div>
-      <button>Atualizar o cadastro</button>
+      <button @click="submitUpdatePersonForm">Atualizar o cadastro</button>
     </div>
 
   </div>
