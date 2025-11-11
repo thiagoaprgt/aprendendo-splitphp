@@ -1,8 +1,6 @@
 <script setup>
 
-  const registerPersonFormButton = document.querySelectorAll('.registerPersonFormButton')[0];
-
-  // registerPersonFormButton.addEventListener("click", submitRegisterPersonForm())
+  const registerPersonFormButton = document.querySelectorAll('.registerPersonFormButton')[0];  
 
   async function submitRegisterPersonForm() {
 
