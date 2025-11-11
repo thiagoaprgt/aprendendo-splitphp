@@ -17,6 +17,7 @@ class Site extends WebService
     if(!empty($this->hostAllowList())) {
 
       $this->teste();
+      $this->registerNewPerson();
      
     }
 
@@ -30,7 +31,9 @@ class Site extends WebService
 
     $hostsAllowedList = [
       "localhost:8000",
+      "127.0.0.1:8000",
       "localhost:5173",
+      "127.0.0.1:5173"
     ]; 
 
     return array_intersect($hostsAllowedList, $host);
@@ -81,12 +84,16 @@ class Site extends WebService
         'address' => $params['address']
       ];
 
-      $this->getService('peopleAPI')->savePerson($data);
+      
+
+      $result = $this->getService('peopleAPI')->insertNewPerson($data);
 
 
       return $this->response
         ->withStatus(200)
-        ->withHTML($this->renderTemplate('site/home', $templateVars));
+        ->withData($result);
+
+
     });
   }
 

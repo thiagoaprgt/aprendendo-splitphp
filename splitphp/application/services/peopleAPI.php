@@ -7,11 +7,11 @@ use \SplitPHP\Service;
 class PeopleAPI extends Service
 {
   
-  protected static $tablename = "people";
+  public static $tablename = "people";
         
 
   
-  private static function findPersonByCPF(int $cpf) {
+  public function findPersonByCPF(int $cpf) {
 
       $result = $this->getDao(self::$tablename)
           ->filter('cpfParam')->equalsTo($cpf)
@@ -22,13 +22,13 @@ class PeopleAPI extends Service
 
   }
 
-  private static function insertNewPerson(array $data) {
+  public function insertNewPerson(array $data) {
 
     $person = $this->findPersonByCPF($data['cpf']);  
       
-        if(!isset($data['cpf'])) {
+        if(empty($person)) {
 
-            $result = $this->getDao(self::$tablename)
+            $result = $this->getDao('people')
                 ->insert($data);
             ;
 
@@ -36,15 +36,17 @@ class PeopleAPI extends Service
 
         }
 
+        return json_encode("erro");
+
   }
 
 
-  private static function updatePerson(int $id) {
+  public static function updatePerson(int $id) {
 
   }
         
 
-  protected static function deletePerson(int $id) {
+  public static function deletePerson(int $id) {
 
     $result = $this->getDao(self::$tablename)
         ->filter('idParam')->equalsTo($id)
