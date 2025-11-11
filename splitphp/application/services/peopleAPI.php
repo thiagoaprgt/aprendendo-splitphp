@@ -22,6 +22,18 @@ class PeopleAPI extends Service
 
   }
 
+
+  public function findPersonById(int $id) {
+
+      $result = $this->getDao(self::$tablename)
+          ->filter('IdParam')->equalsTo($id)
+          ->find("SELECT * FROM " . self::$tablename . " WHERE id = ?IdParam?")
+      ;
+
+      return $result;            
+
+  }
+
   public function insertNewPerson(array $data) {
 
     $person = $this->findPersonByCPF($data['cpf']);  

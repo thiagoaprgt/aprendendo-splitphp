@@ -19,6 +19,7 @@ class Site extends WebService
       $this->listAllPeople();
       $this->deletePerson();
       $this->updatePerson();
+      $this->findPersonById();
      
     }
     
@@ -152,6 +153,24 @@ class Site extends WebService
 
 
     });
+  }
+
+  private function findPersonById() {
+
+    $this->addEndpoint('POST', '/findPersonById', function ($params) {
+
+      $data = [
+        'id' => intval($params['id']),
+        
+      ]; 
+      
+      $db = $this->getService('peopleAPI')->findPersonById($data['id']); 
+
+      return $this->response
+        ->withStatus(200)
+        ->withData($db);
+    });
+
   }
 
 

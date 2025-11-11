@@ -1,5 +1,31 @@
 <script setup>
 
+  function getIdonUrl() {
+
+    let urlComplete = window.location.href;
+    let urlWithoutQueryString = window.location.protocol + "//"+ window.location.host + window.location.pathname;
+
+    let id = urlComplete.slice(parseInt(urlWithoutQueryString.length) + 4);
+    return parseInt(id);
+
+  }
+
+  async function getPerson() {  
+
+    let id = getIdonUrl();
+    
+    let form = new FormData();
+    form.append("id", id);
+
+    let person = await fetch("http://127.0.0.1:8000/site/findPersonById", {
+      method: "POST",
+      body: form,
+    });
+
+    console.log(person);
+
+  }
+
   async function submitUpdatePersonForm() {
 
     let form = new FormData();
@@ -40,6 +66,10 @@
 
     <div>Endereço</div>
     <input type="text" name="address_updatePerson">
+
+    <div>
+      <button @click="getPerson">Atualizar o cadastro</button>
+    </div>
 
   </div>
 </template>
