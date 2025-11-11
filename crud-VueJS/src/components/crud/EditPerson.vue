@@ -17,24 +17,36 @@
     let form = new FormData();
     form.append("id", id);
 
-    let person = await fetch("http://127.0.0.1:8000/site/findPersonById", {
+    let request = await fetch("http://127.0.0.1:8000/site/findPersonById", {
       method: "POST",
       body: form,
     });
 
-    console.log(person);
+    let json = await request.json();
 
+    let person = json[0];
+
+    // console.log(person);
+
+    document.querySelectorAll('[name="name_updatePerson"]')[0].value = person.name;
+    document.querySelectorAll('[name="email_updatePerson"]')[0].value = person.email;
+    document.querySelectorAll('[name="cellphone_updatePerson"]')[0].value = person.cellphone;
+    document.querySelectorAll('[name="cpf_updatePerson"]')[0].value = person.cpf;
+    document.querySelectorAll('[name="address_updatePerson"]')[0].value = person.address;
+  
   }
+
+  getPerson();
 
   async function submitUpdatePersonForm() {
 
     let form = new FormData();
 
-    form.append("name", document.querySelectorAll('.form_updatePerson [name="name"]')[0].value);
-    form.append("email", document.querySelectorAll('.form_updatePerson [name="email"]')[0].value);
-    form.append("cellphone", document.querySelectorAll('.form_updatePerson [name="cellphone"]')[0].value);
-    form.append("cpf", document.querySelectorAll('.form_updatePerson [name="cpf"]')[0].value);
-    form.append("address", document.querySelectorAll('.form_updatePerson [name="address"]')[0].value);
+    form.append("name", document.querySelectorAll('[name="name_updatePerson"]')[0].value);
+    form.append("email", document.querySelectorAll('[name="email_updatePerson"]')[0].value);
+    form.append("cellphone", document.querySelectorAll('[name="cellphone_updatePerson"]')[0].value );
+    form.append("cpf", document.querySelectorAll('[name="cpf_updatePerson"]')[0].value);
+    form.append("address", document.querySelectorAll('[name="address_updatePerson"]')[0].value);
 
        
 
@@ -56,13 +68,13 @@
     <input name="name_updatePerson" type="text">
 
     <div>Telefone (whatsapp):</div>
-    <input type="tel" name="telephone_updatePerson">
+    <input type="number" name="cellphone_updatePerson">
 
     <div>Email:</div>
     <input type="email" name="email_updatePerson">
 
     <div>CPF</div>
-    <input type="number" name="cpf">
+    <input type="number" name="cpf_updatePerson">
 
     <div>Endereço</div>
     <input type="text" name="address_updatePerson">
