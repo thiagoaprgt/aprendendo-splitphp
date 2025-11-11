@@ -167,7 +167,7 @@
 
       async function editPerson(element) {
 
-        window.location.href= 'http://localhost:5173/editPerson'
+        window.location.href= 'http://localhost:5173/editPerson?id='+element.getAttribute('person_id')
 
         console.log(element);
 

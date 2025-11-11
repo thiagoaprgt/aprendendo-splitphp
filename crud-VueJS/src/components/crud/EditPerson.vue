@@ -1,10 +1,24 @@
 <script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-})
+
+  async function submitUpdatePersonForm() {
+
+    let form = new FormData();
+
+    form.append("name", document.querySelectorAll('.form_updatePerson [name="name"]')[0].value);
+    form.append("email", document.querySelectorAll('.form_updatePerson [name="email"]')[0].value);
+    form.append("cellphone", document.querySelectorAll('.form_updatePerson [name="cellphone"]')[0].value);
+    form.append("cpf", document.querySelectorAll('.form_updatePerson [name="cpf"]')[0].value);
+    form.append("address", document.querySelectorAll('.form_updatePerson [name="address"]')[0].value);
+
+       
+
+    await fetch("http://127.0.0.1:8000/site/updatePerson", {
+      method: "POST",
+      body: form,
+    });
+
+  } 
+
 </script>
 
 <template>
@@ -13,19 +27,19 @@ defineProps({
     <div>Editar pessoas</div>
 
     <div>Nome Completo</div>
-    <input name="name_registerPerson" type="text">
+    <input name="name_updatePerson" type="text">
 
     <div>Telefone (whatsapp):</div>
-    <input type="tel" name="telephone_registerPerson">
+    <input type="tel" name="telephone_updatePerson">
 
     <div>Email:</div>
-    <input type="email" name="email_registerPerson">
+    <input type="email" name="email_updatePerson">
 
     <div>CPF</div>
     <input type="number" name="cpf">
 
     <div>Endereço</div>
-    <input type="text" name="address_registerPerson">
+    <input type="text" name="address_updatePerson">
 
   </div>
 </template>

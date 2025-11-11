@@ -12,18 +12,15 @@ class Site extends WebService
 
     $this->homePage();
 
-    
-
     if(!empty($this->hostAllowList())) {
 
       $this->teste();
       $this->registerNewPerson();
       $this->listAllPeople();
       $this->deletePerson();
+      $this->updatePerson();
      
     }
-
-   
     
   }
 
@@ -132,6 +129,29 @@ class Site extends WebService
 
     });
 
+  }
+
+  private function updatePerson() {
+
+    $this->addEndpoint('POST', '/updatePerson', function ($params) {
+       
+      $data = [
+        'name' => $params['name'],
+        'email' => $params['email'],
+        'cellphone' => $params['cellphone'],
+        'cpf' => $params['cpf'],
+        'address' => $params['address']
+      ];      
+
+      $result = $this->getService('peopleAPI')->updatePerson($data);
+
+
+      return $this->response
+        ->withStatus(200)
+        ->withData($result);
+
+
+    });
   }
 
 
