@@ -1,25 +1,38 @@
-<script setup>
+<script setup>  
 
-  const FilterPeopleFormButton = document.querySelectorAll('.listPeopleFormButton')[0];  
+  // const FilterPeopleFormButton = document.querySelectorAll('.listPeopleFormButton')[0];  
 
-  async function submitListPeopleForm() {
+  // async function submitListPeopleForm() {
 
-    let form = new FormData();
+  //   let form = new FormData();
 
-    form.append("name", document.querySelectorAll('.form_listPeople [name="name"]')[0].value);
-    form.append("email", document.querySelectorAll('.form_listPeople [name="email"]')[0].value);
-    form.append("cellphone", document.querySelectorAll('.form_listPeople [name="cellphone"]')[0].value);
-    form.append("cpf", document.querySelectorAll('.form_listPeople [name="cpf"]')[0].value);
-    form.append("address", document.querySelectorAll('.form_listPeople [name="address"]')[0].value);
+  //   form.append("name", document.querySelectorAll('.form_listPeople [name="name"]')[0].value);
+  //   form.append("email", document.querySelectorAll('.form_listPeople [name="email"]')[0].value);
+  //   form.append("cellphone", document.querySelectorAll('.form_listPeople [name="cellphone"]')[0].value);
+  //   form.append("cpf", document.querySelectorAll('.form_listPeople [name="cpf"]')[0].value);
+  //   form.append("address", document.querySelectorAll('.form_listPeople [name="address"]')[0].value);
 
        
 
-    await fetch("http://127.0.0.1:8000/site/listPeople", {
-      method: "POST",
-      body: form,
-    });
+  //   await fetch("http://127.0.0.1:8000/site/listPeople", {
+  //     method: "POST",
+  //     body: form,
+  //   });
 
-  } 
+  // } 
+
+
+  async function clearListPeople() {
+
+
+    let tableBody= document.querySelectorAll('.listPeople tbody tr');
+    
+    for (let index = 0; index < tableBody.length; index++) {     
+
+      tableBody[index].remove();
+      
+    }
+  }
 
 
   async function listAllPeople() {
@@ -32,7 +45,61 @@
 
     });
 
-    console.log(list);
+    let listPeople = await list.json(); 
+    
+    console.log(listPeople);
+
+    await clearListPeople();
+   
+
+    let tableBody= document.querySelectorAll('.listPeople tbody')[0];
+
+    for (let index = 0; index < listPeople.length; index++) {
+      
+      let tr = document.createElement("tr");
+
+      let id = document.createElement("td");
+      id.innerText = listPeople[index].id; 
+
+      let name = document.createElement("td");
+      name.innerText = listPeople[index].name;
+
+      let email = document.createElement("td");
+      email.innerText = listPeople[index].email;
+
+      let cellphone = document.createElement("td");
+      cellphone.innerText = listPeople[index].cellphone;
+
+      let cpf = document.createElement("td");
+      cpf.innerText = listPeople[index].cpf;
+
+      let address = document.createElement("td");
+      address.innerText = listPeople[index].address;
+
+      let edit = document.createElement("td");
+      edit.innerHTML = "&#128221";
+
+     let remove = document.createElement("td");
+      remove.innerHTML = "❌";
+      
+
+      // console.log(id);
+
+
+      tr.appendChild(id);
+      tr.appendChild(name);
+      tr.appendChild(email);
+      tr.appendChild(cellphone);
+      tr.appendChild(cpf);
+      tr.appendChild(address);
+      tr.appendChild(edit);
+      tr.appendChild(remove);
+
+      tableBody.appendChild(tr);
+      
+
+      
+    }
 
   }
   
@@ -62,26 +129,49 @@
     <input type="text" name="address">
 
     <div class="form_button">
-      <button class="listPeopleFormButton" @click="submitListPeopleForm">Cadastrar</button>
+      <button class="listPeopleFormButton" @click="submitListPeopleForm">Filtrar</button>
     </div>
 
     <div class="form_button">
-      <button class="listPeopleFormButton" @click="listAllPeople">Listar todas pessoas</button>
+      <button class="listPeopleFormButton" @click="listAllPeople">Listar todas as pessoas</button>
+    </div>
+
+    <div class="form_button">
+      <button class="listPeopleFormButton" @click="clearListPeople">Limpar a lista</button>
     </div>
 
   </div>
 
   <div class="listPeople">
 
-    <ul>
-      <li>
+    <table>
 
-      </li>
-    </ul>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>CPF</th>
+          <th>Endereço</th>
+          <th>Editar</th>
+          <th>Excluir</th>
+        </tr>
+      </thead>
+
+      <tbody>
+                
+
+      </tbody>
+
+
+    </table>
 
   </div>
 
 </template>
+
+
 
 
 
