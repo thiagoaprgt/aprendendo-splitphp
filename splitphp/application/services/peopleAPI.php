@@ -41,16 +41,16 @@ class PeopleAPI extends Service
   }
 
 
-  public static function updatePerson(int $id) {
+  public function updatePerson(int $id) {
 
   }
         
 
-  public static function deletePerson(int $id) {
+  public function deletePerson(int $id) {
 
     $result = $this->getDao(self::$tablename)
-        ->filter('idParam')->equalsTo($id)
-        ->delete("DELETE FROM " . self::$tablename . " WHERE id = ?idParam?")
+        ->filter('id')->equalsTo($id)
+        ->delete()
     ;
 
     return $result;   

@@ -19,6 +19,7 @@ class Site extends WebService
       $this->teste();
       $this->registerNewPerson();
       $this->listAllPeople();
+      $this->deletePerson();
      
     }
 
@@ -102,6 +103,27 @@ class Site extends WebService
     $this->addEndpoint('GET', '/listAllPeople', function ($params){
 
       $result = $this->getService('peopleAPI')->listAllPeople();
+
+
+      return $this->response
+        ->withStatus(200)
+        ->withData($result);
+
+    });
+
+  }
+
+
+  private function deletePerson() {
+
+    $this->addEndpoint('POST', '/deletePerson', function ($params){
+
+      $data = [
+        'id' => intval($params['id']),
+        
+      ];   
+
+      $result = $this->getService('peopleAPI')->deletePerson($data['id']);
 
 
       return $this->response

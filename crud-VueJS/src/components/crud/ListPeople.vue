@@ -1,4 +1,5 @@
-<script setup>  
+<script setup>
+
 
   // const FilterPeopleFormButton = document.querySelectorAll('.listPeopleFormButton')[0];  
 
@@ -50,9 +51,12 @@
     console.log(listPeople);
 
     await clearListPeople();
+
+    // return listPeople;
    
 
     let tableBody= document.querySelectorAll('.listPeople tbody')[0];
+    
 
     for (let index = 0; index < listPeople.length; index++) {
       
@@ -75,17 +79,23 @@
 
       let address = document.createElement("td");
       address.innerText = listPeople[index].address;
-
-      let edit = document.createElement("td");
-      edit.innerHTML = "&#128221";
-
-     let remove = document.createElement("td");
-      remove.innerHTML = "❌";
       
 
-      // console.log(id);
+      let edit = document.createElement("td");      
+      edit.innerHTML = "&#128221";
 
+      let remove = document.createElement("td");
+      let clickAttribute = document.createAttribute('onclick');
+      clickAttribute.value = "deletePerson(this)";
+      remove.setAttributeNode(clickAttribute);
+      remove.innerHTML = "❌";
 
+      let personIdAttribute = document.createAttribute('person_id');
+      personIdAttribute.value = listPeople[index].id;
+
+      edit.setAttributeNode(personIdAttribute);
+      remove.setAttributeNode(personIdAttribute.cloneNode(true));
+      
       tr.appendChild(id);
       tr.appendChild(name);
       tr.appendChild(email);
@@ -99,9 +109,75 @@
       
 
       
-    }
+    }    
 
   }
+
+  
+  async function deletePerson(element) {
+
+    let form = new FormData();
+    form.append("id", element.getAttribute('person_id'))
+
+    let endpoint = "http://127.0.0.1:8000/site/deletePerson";
+
+    let list = await fetch(endpoint, {
+
+      method: "DELETE",
+      body: form,
+
+    });
+
+  }
+  
+
+  function createTagScriptAfterMountedVueJs() {
+
+    
+    let script = document.createElement("script")
+    script.innerHTML= `
+
+      async function deletePerson(element) {
+
+        console.log(element.getAttribute('person_id'));    
+
+        let personId= parseInt(element.getAttribute('person_id'));
+
+        let form = new FormData();
+        form.append("id", personId)
+
+        let endpoint = "http://127.0.0.1:8000/site/deletePerson";
+
+        let list = await fetch(endpoint, {
+
+          method: "POST",
+          body: form,
+
+        });
+
+        
+        let buttonListAllPeople = document.querySelectorAll('button.allPeople')[0];
+        buttonListAllPeople.click()
+         
+
+      }
+
+      async function EditPerson(element) {
+
+        console.log(element.getAttribute('person_id'));
+
+      }
+
+    `;
+
+    let body = document.querySelectorAll('body')[0].lastElementChild;
+    body.insertAdjacentElement("afterend", script);
+
+  }
+
+  createTagScriptAfterMountedVueJs();
+
+ 
   
 
 </script>
@@ -133,7 +209,7 @@
     </div>
 
     <div class="form_button">
-      <button class="listPeopleFormButton" @click="listAllPeople">Listar todas as pessoas</button>
+      <button class="listPeopleFormButton allPeople" @click="listAllPeople">Listar todas as pessoas</button>
     </div>
 
     <div class="form_button">
@@ -160,7 +236,8 @@
       </thead>
 
       <tbody>
-                
+      
+
 
       </tbody>
 
@@ -168,9 +245,9 @@
     </table>
 
   </div>
+ 
 
 </template>
-
 
 
 
