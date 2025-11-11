@@ -15,9 +15,9 @@ const routes = [
     },
 
     {
-        path: "/filterPeople",
-        name: "FilterPeople",
-        component: FilterPeople,
+        path: "/listPeople",
+        name: "ListPeople",
+        component: ListPeople,
     },
 
     {
