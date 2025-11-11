@@ -31,7 +31,7 @@ class Site extends WebService
     $hostsAllowedList = [
       "localhost:8000",
       "localhost:5173",
-    ];
+    ]; 
 
     return array_intersect($hostsAllowedList, $host);
   }
@@ -67,6 +67,27 @@ class Site extends WebService
         ->withData($db);
     });
 
+  }
+
+  private function registerNewPerson() {
+
+    $this->addEndpoint('POST', '/registerNewPerson', function ($params) {
+       
+      $data = [
+        'name' => $params['name'],
+        'email' => $params['email'],
+        'cellphone' => $params['cellphone'],
+        'cpf' => $params['cpf'],
+        'address' => $params['address']
+      ];
+
+      $this->getService('peopleAPI')->savePerson($data);
+
+
+      return $this->response
+        ->withStatus(200)
+        ->withHTML($this->renderTemplate('site/home', $templateVars));
+    });
   }
 
 
