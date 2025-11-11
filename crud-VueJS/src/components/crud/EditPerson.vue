@@ -80,7 +80,7 @@
     <input type="text" name="address_updatePerson">
 
     <div>
-      <button @click="getPerson">Atualizar o cadastro</button>
+      <button>Atualizar o cadastro</button>
     </div>
 
   </div>
