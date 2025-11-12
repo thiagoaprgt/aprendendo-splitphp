@@ -7,6 +7,11 @@ import EditPerson from './../components/crud/EditPerson.vue';
 
 const routes = [
 
+     {
+        path: "/",
+        name: "Testando",
+        component: Testando,
+    },
    
     {
         path: "/registerPerson",

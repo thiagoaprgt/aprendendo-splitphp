@@ -19,6 +19,8 @@
       body: form,
     });
 
+    window.location.href= import.meta.env.VITE_SITE_VUEJS + '/listPeople';
+
   } 
   
 
