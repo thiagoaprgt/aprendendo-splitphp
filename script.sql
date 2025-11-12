@@ -1,4 +1,4 @@
--- Para usar o DAO do framework é necessário criar um usuário com o nome: splitphp_readonlyuser@localhost
+
 SELECT user, host, authentication_string FROM mysql.user;
 SELECT * FROM mysql.user;
 
@@ -6,7 +6,7 @@ create user 'splitphp_readonlyuser'@'172.18.0.1' IDENTIFIED BY 'thiago123';
 
 create user 'thiago'@'localhost' IDENTIFIED BY 'thiago';
 
-ALTER USER 'splitphp_readonlyuser'@'172.18.0.1' IDENTIFIED BY 'thiagoqqq';
+ALTER USER 'splitphp_readonlyuser'@'172.18.0.1' IDENTIFIED BY 'thiago123';
 
 
 create database crudsplitphp;
