@@ -20,6 +20,7 @@ class Site extends WebService
       $this->deletePerson();
       $this->updatePerson();
       $this->findPersonById();
+      $this->listPeopleWithFilter();
      
     }
     
@@ -101,6 +102,22 @@ class Site extends WebService
     $this->addEndpoint('GET', '/listAllPeople', function ($params){
 
       $result = $this->getService('peopleAPI')->listAllPeople();
+
+
+      return $this->response
+        ->withStatus(200)
+        ->withData($result);
+
+    });
+
+  }
+
+
+  private function listPeopleWithFilter() {
+    
+    $this->addEndpoint('GET', '/listPeopleWithFilter', function ($params){
+
+      $result = $this->getService('peopleAPI')->listPeople();
 
 
       return $this->response

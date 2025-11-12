@@ -87,8 +87,50 @@ class PeopleAPI extends Service
 
   }
 
-  protected static function listPeople(array $conditions) {
+  protected function listPeople(array $conditions) {
+
+    $where = $this->filterPeople($conditions);
+
+    $result = $this->getDao(self::$tablename)
+        ->find("SELECT * FROM " . $where);
+    ;
+
+    return $result;
 
   }
+
+  private function filterPeople(array $conditions) {
+
+    $data = [
+        'id' => $conditions['id'],
+        'name' => $conditions['name'],
+        'email' => $conditions['email'],
+        'cellphone' => $conditions['cellphone'],
+        'cpf' => $conditions['cpf'],
+        'address' => $conditions['address']
+    ];
+
+    $where = 'WHERE ';
+
+    $count = 0;
+
+    foreach ($data as $key => $value) {
+        
+
+        if($count < count($data)) {
+            $where .= $key . ' = ' . $value . ' AND ';
+        }else{
+            $where .= $key . ' = ' . $value;
+        }
+
+        $count++;
+               
+    }
+
+    return $where;    
+
+  }
+
+
 
 }
