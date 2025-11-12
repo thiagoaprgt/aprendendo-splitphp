@@ -51,12 +51,12 @@
 
        
 
-    await fetch(VITE_API + "/site/updatePerson", {
+    await fetch(import.meta.env.VITE_API + "/site/updatePerson", {
       method: "POST",
       body: form,
     });
 
-    window.location.href= VITE_SITE_VUEJS + '/listPeople';
+    window.location.href= import.meta.env.VITE_SITE_VUEJS + '/listPeople';
 
   } 
 
