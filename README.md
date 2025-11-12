@@ -28,9 +28,9 @@ Pelo terminal estando na pasta crud-VueJs digite os comando:
 
 Funcionalidades da aplicação:
 
-    -> Cadastro de pessoas;
-    -> Listagem dos cadastros podendo usar os filtros de busca;
-    -> Atualização de cadastro;    
+    -> Formulário de Cadastro de pessoas: /registerPerson
+    -> Formulário de listagem dos cadastros podendo usar os filtros de busca: /listPeople
+    -> Formulário de Atualização de cadastro: /editPerson
     -> Exclusão dos cadastros;
     -> Sistema de permissão de hosts que podem acessar a API.
 
