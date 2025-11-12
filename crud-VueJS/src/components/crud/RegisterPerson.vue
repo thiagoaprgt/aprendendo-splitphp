@@ -6,11 +6,11 @@
 
     let form = new FormData();
 
-    form.append("name", document.querySelectorAll('.form_registerPerson [name="name"]')[0].value);
-    form.append("email", document.querySelectorAll('.form_registerPerson [name="email"]')[0].value);
-    form.append("cellphone", document.querySelectorAll('.form_registerPerson [name="cellphone"]')[0].value);
-    form.append("cpf", document.querySelectorAll('.form_registerPerson [name="cpf"]')[0].value);
-    form.append("address", document.querySelectorAll('.form_registerPerson [name="address"]')[0].value);
+    form.append("name", document.querySelectorAll('.form_registerPerson[name="name"]')[0].value);
+    form.append("email", document.querySelectorAll('.form_registerPerson[name="email"]')[0].value);
+    form.append("cellphone", document.querySelectorAll('.form_registerPerson[name="cellphone"]')[0].value);
+    form.append("cpf", document.querySelectorAll('.form_registerPerson[name="cpf"]')[0].value);
+    form.append("address", document.querySelectorAll('.form_registerPerson[name="address"]')[0].value);
 
        
 
@@ -30,16 +30,16 @@
   
   <div class="registerPerson">
 
-    <form class="row g-3">
+    <div class="row g-3">
 
     <div class="col-md-6">
-      <label for="inputEmail4" class="form-label form_registerPerson">Nome</label>
-      <input type="text" class="form-control" id="name" name="name">
+      <label for="inputEmail4" class="form-label">Nome</label>
+      <input type="text" class="form-control form_registerPerson" id="name" name="name">
     </div>
 
     <div class="col-md-6">
-      <label for="inputEmail4" class="form-label form_registerPerson">Email</label>
-      <input type="email" class="form-control" id="inputEmail4" name="email">
+      <label for="inputEmail4" class="form-label">Email</label>
+      <input type="email" class="form-control form_registerPerson" id="inputEmail4" name="email">
     </div>
 
     <div class="col-md-6">
@@ -62,7 +62,7 @@
       <button type="submit" class="btn btn-primary" @click="submitRegisterPersonForm" >Cadastrar pessoa</button>
     </div>
 
-    </form>
+  </div>
 
   </div>
 
@@ -79,7 +79,7 @@
     
   }
 
-  form{
+  .registerPerson > div{
     background-color: rgba(53, 53, 53, 0.105);
   }
 
