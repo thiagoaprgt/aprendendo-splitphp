@@ -101,8 +101,7 @@ class PeopleAPI extends Service
 
   private function filterPeople(array $conditions) {
 
-    $data = [
-        'id' => $conditions['id'],
+    $data = [        
         'name' => $conditions['name'],
         'email' => $conditions['email'],
         'cellphone' => $conditions['cellphone'],
@@ -118,7 +117,11 @@ class PeopleAPI extends Service
         
 
         if($count < count($data)) {
-            $where .= $key . ' = ' . $value . ' AND ';
+
+            if(!empty($data[$key])) {
+                $where .= $key . ' = ' . $value . ' AND ';
+            }
+
         }else{
             $where .= $key . ' = ' . $value;
         }
