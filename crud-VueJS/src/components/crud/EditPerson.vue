@@ -61,53 +61,60 @@
 </script>
 
 <template>
-  <div>
+  
+  
+  <div class="editPerson">
 
-    <div>Editar pessoas</div>
+    <form class="row g-3">
 
-    <div>Nome Completo</div>
-    <input name="name_updatePerson" type="text">
-
-    <div>Telefone (whatsapp):</div>
-    <input type="number" name="cellphone_updatePerson">
-
-    <div>Email:</div>
-    <input type="email" name="email_updatePerson">
-
-    <div>CPF</div>
-    <input type="number" name="cpf_updatePerson">
-
-    <div>Endereço</div>
-    <input type="text" name="address_updatePerson">
-
-    <div>
-      <button @click="submitUpdatePersonForm">Atualizar o cadastro</button>
+    <div class="col-md-6">
+      <label for="inputEmail4" class="form-label form_registerPerson">Nome</label>
+      <input type="text" class="form-control" id="name" name="name_updatePerson">
     </div>
 
+    <div class="col-md-6">
+      <label for="inputEmail4" class="form-label form_registerPerson">Email</label>
+      <input type="email" class="form-control" id="inputEmail4" name="email_updatePerson">
+    </div>
+
+    <div class="col-md-6">
+      <label for="inputAddress" class="form-label">Telefone</label>
+      <input type="number" class="form-control  form_registerPerson" id="inputCellphone" placeholder="1234" name="cellphone_updatePerson">
+    </div>
+
+    <div class="col-md-6">
+      <label for="inputAddress" class="form-label">CPF</label>
+      <input type="number" class="form-control form_registerPerson" id="inputAddress" placeholder="12345678912" name="cpf_updatePerson">
+    </div>
+    
+    <div class="col-12">
+      <label for="inputAddress" class="form-label">Endereço</label>
+      <input type="text" class="form-control  form_registerPerson" id="inputAddress" placeholder="1234 Main St" name="address_updatePerson">
+    </div>
+
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" @click="submitUpdatePersonForm" >Atualizar cadastro</button>
+    </div>
+
+    </form>
+
   </div>
+  
 </template>
 
 <style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
 
-h3 {
-  font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
+  .editPerson  {
+    height: 100vh;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
   }
-}
+
+  form{
+    background-color: rgba(53, 53, 53, 0.105);
+  }
+
 </style>
