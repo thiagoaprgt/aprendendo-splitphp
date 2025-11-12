@@ -38,7 +38,7 @@
 
   async function listAllPeople() {
 
-    let endpoint = "http://127.0.0.1:8000/site/listAllPeople";
+    let endpoint = import.meta.env.VITE_API + "/site/listAllPeople";
 
     let list = await fetch(endpoint, {
 
@@ -122,7 +122,7 @@
     let form = new FormData();
     form.append("id", element.getAttribute('person_id'))
 
-    let endpoint = "http://127.0.0.1:8000/site/updatePerson";
+    let endpoint = import.meta.env.VITE_API + "/site/updatePerson";
 
     let list = await fetch(endpoint, {
 
@@ -149,7 +149,7 @@
         let form = new FormData();
         form.append("id", personId)
 
-        let endpoint = "http://127.0.0.1:8000/site/deletePerson";
+        let endpoint = import.meta.env.VITE_API + "/site/deletePerson";
 
         let list = await fetch(endpoint, {
 
@@ -167,7 +167,7 @@
 
       async function editPerson(element) {
 
-        window.location.href= 'http://localhost:5173/editPerson?id='+element.getAttribute('person_id')
+        window.location.href= import.meta.env.VITE_SITE_VUEJS + '/editPerson?id='+element.getAttribute('person_id')
 
         console.log(element);
 

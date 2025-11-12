@@ -51,12 +51,12 @@
 
        
 
-    await fetch("http://127.0.0.1:8000/site/updatePerson", {
+    await fetch(VITE_API + "/site/updatePerson", {
       method: "POST",
       body: form,
     });
 
-    window.location.href= 'http://localhost:5173/listPeople';
+    window.location.href= VITE_SITE_VUEJS + '/listPeople';
 
   } 
 
