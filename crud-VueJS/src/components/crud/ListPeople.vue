@@ -190,35 +190,48 @@
 
 <template>
 
-  <div class="form_listPeople">
+  <div class="filterPeople">
 
-    <div>Filtrar lista de pessoas:</div>
+    <div class="row g-3">
 
-    <div>Nome Completo</div>
-    <input name="name" type="text">
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label form_registerPerson">Nome</label>
+        <input type="text" class="form-control" id="name" name="name">
+      </div>
 
-    <div>Email:</div>
-    <input type="email" name="email">
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label form_registerPerson">Email</label>
+        <input type="email" class="form-control" id="inputEmail4" name="email">
+      </div>
 
-    <div>Telefone (whatsapp):</div>
-    <input type="number" name="cellphone">
+      <div class="col-md-4">
+        <label for="inputAddress" class="form-label">Telefone</label>
+        <input type="number" class="form-control  form_registerPerson" id="inputCellphone" placeholder="1234" name="cellphone">
+      </div>
 
-    <div>CPF</div>
-    <input type="number" name="cpf">
+      <div class="col-md-4">
+        <label for="inputAddress" class="form-label">CPF</label>
+        <input type="number" class="form-control form_registerPerson" id="inputAddress" placeholder="12345678912" name="cpf">
+      </div>
+      
+      <div class="col-4">
+        <label for="inputAddress" class="form-label">Endereço</label>
+        <input type="text" class="form-control  form_registerPerson" id="inputAddress" placeholder="1234 Main St" name="address">
+      </div>
 
-    <div>Endereço</div>
-    <input type="text" name="address">
 
-    <div class="form_button">
-      <button class="listPeopleFormButton" @click="submitListPeopleForm">Filtrar</button>
-    </div>
+      <div class="col-4">
+        <button type="submit" class="btn btn-primary" @click="submitListPeopleForm" >Filtrar pessoas</button>
+      </div>
 
-    <div class="form_button">
-      <button class="listPeopleFormButton allPeople" @click="listAllPeople">Listar todas as pessoas</button>
-    </div>
+      <div class="col-4">
+        <button type="submit" class="btn btn-primary" @click="listAllPeople" >Listar todas as pessoas</button>
+      </div>
 
-    <div class="form_button">
-      <button class="listPeopleFormButton" @click="clearListPeople">Limpar a lista</button>
+      <div class="col-4">
+        <button type="submit" class="btn btn-primary" @click="clearListPeople" >Limpar a lista</button>
+      </div>
+
     </div>
 
   </div>
@@ -253,6 +266,28 @@
  
 
 </template>
+
+
+<style scoped>
+
+  .filterPeople, .listPeople  {     
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    
+    
+    
+  }
+
+  .filterPeople > div{
+    background-color: rgba(53, 53, 53, 0.105);
+  }
+
+  
+
+</style>
 
 
 
