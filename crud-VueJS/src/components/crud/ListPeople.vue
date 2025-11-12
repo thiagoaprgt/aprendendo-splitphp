@@ -81,7 +81,7 @@
       address.innerText = listPeople[index].address;
       
 
-      let edit = document.createElement("a");
+      let edit = document.createElement("td");
       let clickAttributeEdit = document.createAttribute('onclick');
       clickAttributeEdit.value = "editPerson(this)";
       edit.setAttributeNode(clickAttributeEdit);    
@@ -221,7 +221,7 @@
 
   <div class="listPeople">
 
-    <table>
+    <table class="table table-striped table-hover">
 
       <thead>
         <tr>
