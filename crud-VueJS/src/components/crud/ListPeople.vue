@@ -114,25 +114,8 @@
       
     }    
 
-  }
-
-  
-  async function editPerson(element) {
-
-    let form = new FormData();
-    form.append("id", element.getAttribute('person_id'))
-
-    let endpoint = import.meta.env.VITE_API + "/site/updatePerson";
-
-    let list = await fetch(endpoint, {
-
-      method: "POST",
-      body: form,
-
-    });
-
-  }
-  
+  }  
+   
 
   function createTagScriptAfterMountedVueJs() {
 
@@ -149,7 +132,7 @@
         let form = new FormData();
         form.append("id", personId)
 
-        let endpoint = import.meta.env.VITE_API + "/site/deletePerson";
+        let endpoint = "${import.meta.env.VITE_API}" + "/site/deletePerson";
 
         let list = await fetch(endpoint, {
 
@@ -167,7 +150,7 @@
 
       async function editPerson(element) {
 
-        window.location.href= import.meta.env.VITE_SITE_VUEJS + '/editPerson?id='+element.getAttribute('person_id')
+        window.location.href= '${import.meta.env.VITE_SITE_VUEJS}' + '/editPerson?id='+element.getAttribute('person_id')
 
         console.log(element);
 
@@ -225,7 +208,7 @@
       </div>
 
       <div class="col-4">
-        <button type="submit" class="btn btn-primary" @click="listAllPeople" >Listar todas as pessoas</button>
+        <button type="submit" class="btn btn-primary allPeople" @click="listAllPeople" >Listar todas as pessoas</button>
       </div>
 
       <div class="col-4">
