@@ -1,26 +1,26 @@
 <script setup>
 
 
-  // const FilterPeopleFormButton = document.querySelectorAll('.listPeopleFormButton')[0];  
+  const FilterPeopleFormButton = document.querySelectorAll('.listPeopleFormButton')[0];  
 
-  // async function submitListPeopleForm() {
+  async function submitListPeopleForm() {
 
-  //   let form = new FormData();
+    let form = new FormData();
 
-  //   form.append("name", document.querySelectorAll('.form_listPeople [name="name"]')[0].value);
-  //   form.append("email", document.querySelectorAll('.form_listPeople [name="email"]')[0].value);
-  //   form.append("cellphone", document.querySelectorAll('.form_listPeople [name="cellphone"]')[0].value);
-  //   form.append("cpf", document.querySelectorAll('.form_listPeople [name="cpf"]')[0].value);
-  //   form.append("address", document.querySelectorAll('.form_listPeople [name="address"]')[0].value);
+    form.append("name", document.querySelectorAll('.filterPeople [name="name"]')[0].value);
+    form.append("email", document.querySelectorAll('.filterPeople [name="email"]')[0].value);
+    form.append("cellphone", document.querySelectorAll('.filterPeople [name="cellphone"]')[0].value);
+    form.append("cpf", document.querySelectorAll('.filterPeople [name="cpf"]')[0].value);
+    form.append("address", document.querySelectorAll('.filterPeople [name="address"]')[0].value);
 
        
 
-  //   await fetch("http://127.0.0.1:8000/site/listPeople", {
-  //     method: "POST",
-  //     body: form,
-  //   });
+    await fetch("http://127.0.0.1:8000/site/listPeople", {
+      method: "POST",
+      body: form,
+    });
 
-  // } 
+  } 
 
 
   async function clearListPeople() {
