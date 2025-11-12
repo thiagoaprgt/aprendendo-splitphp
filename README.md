@@ -17,7 +17,7 @@ Pelo terminal estando na pasta splitphp do projeto digite:
 Instruções referente ao Vue.js + Boot Strap
 
 Configurar o arquivo .env com os host usados na aplicação.
-Nessa aplicação são usados dois host um para o site em Vue.js e outro para API feito no Split PHP 
+Nessa aplicação são usados dois host um para o site em Vue.js e outro para a API feita no Split PHP 
 
 Pelo terminal estando na pasta crud-VueJs digite os comando:
 
@@ -29,10 +29,10 @@ Pelo terminal estando na pasta crud-VueJs digite os comando:
 Funcionalidades da aplicação:
 
     -> Cadastro de pessoas;
-    -> Listagem dos cadastro podendo usar filtros busca;
+    -> Listagem dos cadastros podendo usar os filtros de busca;
     -> Atualização de cadastro;    
-    -> Exclusão de pessoas;
-    -> Sistema de permissão de hosts
+    -> Exclusão dos cadastros;
+    -> Sistema de permissão de hosts que podem acessar a API.
 
 
 
