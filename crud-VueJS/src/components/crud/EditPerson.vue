@@ -56,6 +56,8 @@
       body: form,
     });
 
+    window.location.href= 'http://localhost:5173/listPeople';
+
   } 
 
 </script>
@@ -65,7 +67,7 @@
   
   <div class="editPerson">
 
-    <form class="row g-3">
+    <div class="row g-3">
 
     <div class="col-md-6">
       <label for="inputEmail4" class="form-label form_registerPerson">Nome</label>
@@ -97,7 +99,7 @@
       <button type="submit" class="btn btn-primary" @click="submitUpdatePersonForm" >Atualizar cadastro</button>
     </div>
 
-    </form>
+  </div>
 
   </div>
   
@@ -113,7 +115,7 @@
     
   }
 
-  form{
+  .editPerson > div{
     background-color: rgba(53, 53, 53, 0.105);
   }
 
