@@ -115,9 +115,9 @@ class Site extends WebService
 
   private function listPeopleWithFilter() {
     
-    $this->addEndpoint('GET', '/listPeopleWithFilter', function ($params){
+    $this->addEndpoint('POST', '/listPeopleWithFilter', function ($params){
 
-      $result = $this->getService('peopleAPI')->listPeople();
+      $result = $this->getService('peopleAPI')->listPeople($params);
 
 
       return $this->response

@@ -1,8 +1,6 @@
 <script setup>
 
 
-  const FilterPeopleFormButton = document.querySelectorAll('.listPeopleFormButton')[0];  
-
   async function submitListPeopleForm() {
 
     let form = new FormData();
@@ -15,10 +13,17 @@
 
        
 
-    await fetch("http://127.0.0.1:8000/site/listPeople", {
+    let request = await fetch(import.meta.env.VITE_API + "/site/listPeopleWithFilter", {
       method: "POST",
       body: form,
     });
+
+    let listPeople = await request.json();
+
+    await clearListPeople();
+
+    makeTablePeopleList(listPeople)
+
 
   } 
 
@@ -54,6 +59,15 @@
 
     // return listPeople;
    
+    
+    makeTablePeopleList(listPeople);
+
+  }  
+
+
+  async function makeTablePeopleList(arrayWithObject_listPeople) {
+
+    let listPeople = arrayWithObject_listPeople;
 
     let tableBody= document.querySelectorAll('.listPeople tbody')[0];
     
@@ -112,9 +126,9 @@
       
 
       
-    }    
+    }
 
-  }  
+  }
    
 
   function createTagScriptAfterMountedVueJs() {
@@ -179,27 +193,27 @@
 
       <div class="col-md-6">
         <label for="inputEmail4" class="form-label form_registerPerson">Nome</label>
-        <input type="text" class="form-control" id="name" name="name">
+        <input type="text" class="form-control" id="name" name="name" placeholder="A pesquisa pode ser feita com uma parte do nome">
       </div>
 
       <div class="col-md-6">
         <label for="inputEmail4" class="form-label form_registerPerson">Email</label>
-        <input type="email" class="form-control" id="inputEmail4" name="email">
+        <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="A pesquisa pode ser feita com uma parte do email">
       </div>
 
       <div class="col-md-4">
         <label for="inputAddress" class="form-label">Telefone</label>
-        <input type="number" class="form-control  form_registerPerson" id="inputCellphone" placeholder="1234" name="cellphone">
+        <input type="number" class="form-control  form_registerPerson" id="inputCellphone" placeholder="Tem que colocar o número correto" name="cellphone">
       </div>
 
       <div class="col-md-4">
         <label for="inputAddress" class="form-label">CPF</label>
-        <input type="number" class="form-control form_registerPerson" id="inputAddress" placeholder="12345678912" name="cpf">
+        <input type="number" class="form-control form_registerPerson" id="inputAddress" placeholder="Tem que colocar o número correto" name="cpf">
       </div>
       
       <div class="col-4">
         <label for="inputAddress" class="form-label">Endereço</label>
-        <input type="text" class="form-control  form_registerPerson" id="inputAddress" placeholder="1234 Main St" name="address">
+        <input type="text" class="form-control  form_registerPerson" id="inputAddress" placeholder="A pesquisa pode ser feita com uma parte do endereço" name="address">
       </div>
 
 
