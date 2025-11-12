@@ -1,6 +1,12 @@
 # aprendendo-splitphp
 
+Documentação utilizada:
 
+https://vuejs.org/guide/introduction.html
+
+https://www.splitphp.org/
+
+https://www.php.net/manual/pt_BR/index.php
 
 
 Instruções referente ao Split PHP
