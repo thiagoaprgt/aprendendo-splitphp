@@ -13,8 +13,10 @@ Instruções referente ao Split PHP
 
 Configurar o arquivo .env do Split PHP com as informações do banco de dados
 
-Pelo terminal estando na pasta splitphp do projeto digite:
+Pelo terminal estando na pasta splitphp do projeto digite nessa ordem:
 
+    Instalando as dependências: composer install
+    
     Gerar o arquivo .env : php console setup
 
     Iniciar a API no servidor de desenvolvimento: php console server:start 
