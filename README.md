@@ -33,8 +33,6 @@ Pelo terminal estando na pasta crud-VueJs digite os comando:
 
     -> Instalar as dependências: npm install  
 
-    -> Instalar o bootstrap: npm i bootstrap@5.3.8
-
     -> Iniciar o site no servidor de desenvolvimento: npm run dev
 
 
