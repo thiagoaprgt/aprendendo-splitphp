@@ -1,5 +1,9 @@
 <script setup>
+import { onMounted, onUpdated, reactive } from 'vue';
+import { ref } from 'vue';
 
+  const people = ref([]);  // O ref([]) é usado para passar o paramêtros de maneira assíncrona que vem da API
+ 
 
   async function submitListPeopleForm() {
 
@@ -22,10 +26,16 @@
 
     await clearListPeople();
 
-    makeTablePeopleList(listPeople)
+    for (let index = 0; index < listPeople.length; index++) {
+      
+      people.value.push(listPeople[index]);
+      
+    }    
+
+    return people;
 
 
-  } 
+  }  
 
 
   async function clearListPeople() {
@@ -41,145 +51,38 @@
   }
 
 
-  async function listAllPeople() {
+  async function deletePerson(id) {      
 
-    let endpoint = import.meta.env.VITE_API + "/site/listAllPeople";
+    let form = new FormData();
+    form.append("id", id)
+
+    let endpoint = import.meta.env.VITE_API + "/site/deletePerson";
 
     let list = await fetch(endpoint, {
 
-      method: "GET"
+      method: "POST",
+      body: form,
 
     });
 
-    let listPeople = await list.json(); 
-    
-    console.log(listPeople);
-
     await clearListPeople();
-
-    // return listPeople;
-   
     
-    makeTablePeopleList(listPeople);
-
-  }  
-
-
-  async function makeTablePeopleList(arrayWithObject_listPeople) {
-
-    let listPeople = arrayWithObject_listPeople;
-
-    let tableBody= document.querySelectorAll('.listPeople tbody')[0];
-    
-
-    for (let index = 0; index < listPeople.length; index++) {
-      
-      let tr = document.createElement("tr");
-
-      let id = document.createElement("td");
-      id.innerText = listPeople[index].id; 
-
-      let name = document.createElement("td");
-      name.innerText = listPeople[index].name;
-
-      let email = document.createElement("td");
-      email.innerText = listPeople[index].email;
-
-      let cellphone = document.createElement("td");
-      cellphone.innerText = listPeople[index].cellphone;
-
-      let cpf = document.createElement("td");
-      cpf.innerText = listPeople[index].cpf;
-
-      let address = document.createElement("td");
-      address.innerText = listPeople[index].address;
-      
-
-      let edit = document.createElement("td");
-      let clickAttributeEdit = document.createAttribute('onclick');
-      clickAttributeEdit.value = "editPerson(this)";
-      edit.setAttributeNode(clickAttributeEdit);    
-      edit.innerHTML = "&#128221";
-
-      let remove = document.createElement("td");
-      let clickAttributeRemove = document.createAttribute('onclick');
-      clickAttributeRemove.value = "deletePerson(this)";
-      remove.setAttributeNode(clickAttributeRemove);
-      remove.innerHTML = "❌";
-
-      let personIdAttribute = document.createAttribute('person_id');
-      personIdAttribute.value = listPeople[index].id;
-
-      edit.setAttributeNode(personIdAttribute);
-      remove.setAttributeNode(personIdAttribute.cloneNode(true));
-      
-      tr.appendChild(id);
-      tr.appendChild(name);
-      tr.appendChild(email);
-      tr.appendChild(cellphone);
-      tr.appendChild(cpf);
-      tr.appendChild(address);
-      tr.appendChild(edit);
-      tr.appendChild(remove);
-
-      tableBody.appendChild(tr);
-      
-
-      
-    }
-
-  }
-   
-
-  function createTagScriptAfterMountedVueJs() {
-
-    
-    let script = document.createElement("script")
-    script.innerHTML= `
-
-      async function deletePerson(element) {
-
-        console.log(element.getAttribute('person_id'));    
-
-        let personId= parseInt(element.getAttribute('person_id'));
-
-        let form = new FormData();
-        form.append("id", personId)
-
-        let endpoint = "${import.meta.env.VITE_API}" + "/site/deletePerson";
-
-        let list = await fetch(endpoint, {
-
-          method: "POST",
-          body: form,
-
-        });
-
+    let buttonListAllPeople = document.querySelectorAll('button.filterPeople')[0];
+    buttonListAllPeople.click();
         
-        let buttonListAllPeople = document.querySelectorAll('button.allPeople')[0];
-        buttonListAllPeople.click()
-         
-
-      }
-
-      async function editPerson(element) {
-
-        window.location.href= '${import.meta.env.VITE_SITE_VUEJS}' + '/editPerson?id='+element.getAttribute('person_id')
-
-        console.log(element);
-
-      }
-
-    `;
-
-    let body = document.querySelectorAll('body')[0].lastElementChild;
-    body.insertAdjacentElement("afterend", script);
 
   }
 
-  createTagScriptAfterMountedVueJs();
 
- 
+  async function editPerson(id) {
+
+    window.location.href = import.meta.env.VITE_SITE_VUEJS + '/editPerson?id=' + id
+
+    
+
+  }
+
+  
   
 
 </script>
@@ -216,14 +119,9 @@
         <input type="text" class="form-control  form_registerPerson" id="inputAddress" placeholder="A pesquisa pode ser feita com uma parte do endereço" name="address">
       </div>
 
-
       <div class="col-4">
-        <button type="submit" class="btn btn-primary" @click="submitListPeopleForm" >Filtrar pessoas</button>
-      </div>
-
-      <div class="col-4">
-        <button type="submit" class="btn btn-primary allPeople" @click="listAllPeople" >Listar todas as pessoas</button>
-      </div>
+        <button type="submit" class="btn btn-primary filterPeople" @click="submitListPeopleForm" >Filtrar pessoas</button>
+      </div>     
 
       <div class="col-4">
         <button type="submit" class="btn btn-primary" @click="clearListPeople" >Limpar a lista</button>
@@ -235,7 +133,7 @@
 
   <div class="listPeople">
 
-    <table class="table table-striped table-hover">
+    <table  class="table table-striped table-hover">
 
       <thead>
         <tr>
@@ -249,9 +147,22 @@
           <th>Excluir</th>
         </tr>
       </thead>
+        
 
       <tbody>
       
+        <tr v-for="person in people" :key="person.id">
+            
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.email }}</td>
+            <td>{{ person.cellphone }}</td>
+            <td> {{ person.cpf }} </td>
+            <td> {{ person.address }} </td>
+            <td  @click.self="editPerson(person.id)" v-bind:key="person.id"> &#128221 </td>
+            <td   @click="deletePerson(person.id)" > ❌ </td>
+
+          </tr>
 
 
       </tbody>
@@ -281,6 +192,8 @@
   .filterPeople > div{
     background-color: rgba(53, 53, 53, 0.105);
   }
+
+  
 
   
 
