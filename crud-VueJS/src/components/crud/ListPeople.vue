@@ -3,19 +3,25 @@ import { onMounted, onUpdated, reactive } from 'vue';
 import { ref } from 'vue';
 
   const people = ref([]);  // O ref([]) é usado para passar o paramêtros de maneira assíncrona que vem da API
+
+  const name = ref('');
+  const email = ref('');
+  const cellphone = ref('');
+  const cpf = ref('');
+  const address = ref('');
  
 
   async function submitListPeopleForm() {
 
     let form = new FormData();
 
-    form.append("name", document.querySelectorAll('.filterPeople [name="name"]')[0].value);
-    form.append("email", document.querySelectorAll('.filterPeople [name="email"]')[0].value);
-    form.append("cellphone", document.querySelectorAll('.filterPeople [name="cellphone"]')[0].value);
-    form.append("cpf", document.querySelectorAll('.filterPeople [name="cpf"]')[0].value);
-    form.append("address", document.querySelectorAll('.filterPeople [name="address"]')[0].value);
+    form.append("name", name.value);
+    form.append("email", email.value);
+    form.append("cellphone", cellphone.value);
+    form.append("cpf", cpf.value);
+    form.append("address", address.value);
 
-       
+       console.log()
 
     let request = await fetch(import.meta.env.VITE_API + "/site/listPeopleWithFilter", {
       method: "POST",
@@ -31,6 +37,8 @@ import { ref } from 'vue';
       people.value.push(listPeople[index]);
       
     }    
+
+
 
     return people;
 
@@ -96,27 +104,27 @@ import { ref } from 'vue';
 
       <div class="col-md-6">
         <label for="inputEmail4" class="form-label form_registerPerson">Nome</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="A pesquisa pode ser feita com uma parte do nome">
+        <input type="text" v-model="name" class="form-control" id="name" name="name" placeholder="A pesquisa pode ser feita com uma parte do nome">
       </div>
 
       <div class="col-md-6">
         <label for="inputEmail4" class="form-label form_registerPerson">Email</label>
-        <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="A pesquisa pode ser feita com uma parte do email">
+        <input type="email" v-model="email" class="form-control" id="inputEmail4" name="email" placeholder="A pesquisa pode ser feita com uma parte do email">
       </div>
 
       <div class="col-md-4">
         <label for="inputAddress" class="form-label">Telefone</label>
-        <input type="number" class="form-control  form_registerPerson" id="inputCellphone" placeholder="Tem que colocar o número correto" name="cellphone">
+        <input v-model="cellphone" type="number" class="form-control  form_registerPerson" id="inputCellphone" placeholder="Tem que colocar o número correto" name="cellphone">
       </div>
 
       <div class="col-md-4">
         <label for="inputAddress" class="form-label">CPF</label>
-        <input type="number" class="form-control form_registerPerson" id="inputAddress" placeholder="Tem que colocar o número correto" name="cpf">
+        <input v-model="cpf" type="number" class="form-control form_registerPerson" id="inputAddress" placeholder="Tem que colocar o número correto" name="cpf">
       </div>
       
       <div class="col-4">
         <label for="inputAddress" class="form-label">Endereço</label>
-        <input type="text" class="form-control  form_registerPerson" id="inputAddress" placeholder="A pesquisa pode ser feita com uma parte do endereço" name="address">
+        <input v-model="address" type="text" class="form-control  form_registerPerson" id="inputAddress" placeholder="A pesquisa pode ser feita com uma parte do endereço" name="address">
       </div>
 
       <div class="col-4">
